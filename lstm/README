@@ -1,0 +1,18 @@
+## 查看系统中断频率
+sudo apt install sysstat
+sar -I SUM 1 5
+命令可以每秒（1表示时间间隔为 1 秒）收集一次中断信息（-I SUM表示汇总的中断信息），总共收集 5 次。
+输出会显示每秒的中断次数等相关数据，通过这些数据可以直观地看到中断频率的变化情况。  
+删除掉5的话，就一直统计下去 
+
+## 统计cpu占用
+pip3 install psutil
+```python
+import psutil
+import time
+
+while True:
+    cpu_percent = psutil.cpu_percent(interval=1)
+    print(f"CPU使用率: {cpu_percent}%")
+    time.sleep(1)
+```

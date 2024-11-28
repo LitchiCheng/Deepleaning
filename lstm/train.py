@@ -97,7 +97,7 @@ output = t_col
 
 input = input[:30000]
 output = output[:30000]
-dataset = MyDataSet(input, output, 500)
+dataset = MyDataSet(input, output, 200)
 print(dataset[0][0].shape)
 
 train_dataloader=DataLoader(dataset=dataset,batch_size=2000,shuffle=True,num_workers=6)
@@ -109,14 +109,14 @@ net = LstmRNN(13, 16, output_size=1, num_layers=1)
 print('LSTM model:', net)
 loss_function = nn.MSELoss()
 
-loss_d = train(net, train_dataloader, loss, num_epochs, 0.001)
-plt.subplot(311)  
-plt.plot(loss_d)
-plt.title("loss")
+# loss_d = train(net, train_dataloader, loss, num_epochs, 0.001)
+# plt.subplot(311)  
+# plt.plot(loss_d)
+# plt.title("loss")
 # torch.save(net, 'net1.pth')
 
-input = input[2000:10000]
-output = output[2000:10000]
+input = input[1000:20000]
+output = output[1000:20000]
 dataset1 = MyDataSet(input, output)
 
 dataloader1=DataLoader(dataset=dataset1,batch_size=2000,shuffle=False,num_workers=6)
@@ -127,6 +127,7 @@ model.to("cuda")
 for x1, y1 in dataloader1:
     x1, y1 = x1.to("cuda"), y1.to("cuda")
     predic1 = model(x1)
+    # break
 
 plt.subplot(313)
 plt.scatter(range(len(y1)), y1.cpu().detach().numpy(), color="b", s=5, label="test_data")
